@@ -11,4 +11,13 @@ export class ProductsRepository {
   async findWithFilter(filters: Partial<Product>): Promise<Product[]> {
     return this.productModel.findAll({ where: filters });
   }
+
+  async findAll(): Promise<Product[]> {
+    return this.productModel.findAll();
+  }
+
+  async create(product: Partial<Product>): Promise<Product> {
+  return this.productModel.create(product);
+}
+
 }
