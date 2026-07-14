@@ -15,19 +15,30 @@ export class ProductsService {
  * @param product - The product data to create
  * @returns The created product
  * @throws BadRequestException when the referenced shop does not exist
+ * @throws BadRequestException when a product with the same name already exists in the shop - case-insensitive
  */
-   async create(product: CreateProductDTO): Promise<ProductDTO> {
-    const shop = await this.shopsRepository.findOne(product.shopId);
+async create(product: CreateProductDTO): Promise<ProductDTO> {
+  const shop = await this.shopsRepository.findOne(product.shopId);
 
-    if (!shop) {
-      throw new BadRequestException(
-        `Shop with id ${product.shopId} does not exist`,
-      );
-    }
-
-    return this.repository.create(product);
+  if (!shop) {
+    throw new BadRequestException(
+      `Shop with id ${product.shopId} does not exist`,
+    );
   }
 
+const existingProduct = await this.repository.findByShopIdAndName(
+  product.shopId,
+  product.name,
+);
+
+if (existingProduct) {
+  throw new BadRequestException(
+    `Product with name ${product.name} already exists in this shop`,
+  );
+  }
+
+  return this.repository.create(product);
+}
 
   async findWithFilter(filter: Partial<ProductDTO>): Promise<ProductDTO[]> {
     return this.repository.findWithFilter(filter);

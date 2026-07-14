@@ -44,6 +44,16 @@ async findAll(search?: string): Promise<Product[]> {
 
   return result[1][0];
 }
+async findByShopIdAndName(shopId: string, name: string): Promise<Product | null> {
+  return this.productModel.findOne({
+    where: {
+      shopId,
+      name: {
+        [Op.iLike]: name,
+      },
+    },
+  });
+}
 
 
 }
