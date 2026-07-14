@@ -28,13 +28,21 @@ export class Member extends Model<Member> {
   @Column({ type: DataType.STRING, allowNull: false })
   dateOfBirth: string;
 
+/**
+ * The date when the member subscribed to the club.
+ */
+ @Column({ type: DataType.STRING, allowNull: false })
+  subscriptionDate: string;
+
   @Column({ type: DataType.STRING(255), allowNull: true })
   phone?: string;
 
   @Column({ type: DataType.UUID })
+  
   @ForeignKey(() => Member)
   centralMemberId?: string;
 
   @BelongsTo(() => Member)
   centralMember?: Member;
+  
 }

@@ -7,7 +7,7 @@ import { ShopsRepository } from 'src/modules/shops/shops.repository';
 @Injectable()
 export class ProductsService {
   constructor(private readonly repository: ProductsRepository,
-    private readonly shopsRepository: ShopsRepository, //fetch shops to make sure that they exist before creating a product
+    private readonly shopsRepository: ShopsRepository, 
   ) {}
   
 /**

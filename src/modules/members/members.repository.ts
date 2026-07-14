@@ -22,12 +22,22 @@ export class MembersRepository {
   /**
    * Fetches all members from the database.
    *
-   *
    * @returns {Promise<Member[]>} All members rows.
    * @throws {Error} If the database query fails.
    */
-  async findAll(): Promise<Member[]> {
-    return this.memberModel.findAll();
+async findAll(limit = 50, offset = 0): Promise<Member[]> {
+  
+  return this.memberModel.findAll({
+    limit,
+    offset,
+  });
+}
+
+
+  async findByCentralMemberId(centralMemberId: string): Promise<Member[]> {
+    return this.memberModel.findAll({
+      where: { centralMemberId },
+    });
   }
 
   /**
