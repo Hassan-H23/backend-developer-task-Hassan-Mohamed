@@ -13,7 +13,7 @@ export class CreateMemberDTO {
   @JoiSchema(Joi.string().valid('male', 'female').required())
   gender: string;
 
-  @JoiSchema(Joi.string().required())
+  @JoiSchema(Joi.date().iso().required())
   dateOfBirth: string;
 
   @JoiSchema(Joi.string().optional())

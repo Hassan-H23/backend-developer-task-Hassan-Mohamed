@@ -32,8 +32,13 @@ async findAll(limit = 50, offset = 0): Promise<Member[]> {
     offset,
   });
 }
-
-
+ /**
+   * Fetches all members linked to the given central member.
+   *
+   * @param {string} centralMemberId - Central member ID to search by.
+   * @returns {Promise<Member[]>} Family members linked to that central member.
+   * @throws {Error} If the database query fails.
+   */
   async findByCentralMemberId(centralMemberId: string): Promise<Member[]> {
     return this.memberModel.findAll({
       where: { centralMemberId },
@@ -44,10 +49,10 @@ async findAll(limit = 50, offset = 0): Promise<Member[]> {
    * Fetches a single member by ID.
    *
    * @param {string} id - Member ID to look up.
-   * @returns {Promise<Member>} The member row (can be `null` at runtime if not found).
+   * @returns {Promise<Member | null>} The member row (can be null at runtime if not found).
    * @throws {Error} If the database query fails.
    */
-  async findOne(id: string): Promise<Member> {
+  async findOne(id: string): Promise<Member | null> {
     return this.memberModel.findByPk(id);
   }
 
@@ -56,10 +61,10 @@ async findAll(limit = 50, offset = 0): Promise<Member[]> {
    *
    * @param {string} id - Member ID to update.
    * @param {Partial<Member>} member - Fields to update.
-   * @returns {Promise<Member>} The updated member row (can be `undefined` at runtime if not found).
+   * @returns {Promise<Member | undefined>} The updated member row (can be undefined at runtime if not found).
    * @throws {Error} If the database update fails.
    */
-  async update(id: string, member: Partial<Member>): Promise<Member> {
+  async update(id: string, member: Partial<Member>): Promise<Member | undefined> {
     const result = await this.memberModel.update(member, {
       where: { id },
       returning: true,

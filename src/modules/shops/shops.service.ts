@@ -120,7 +120,7 @@ export class ShopsService {
       'Cannot delete a shop that still has products',
     );
   }
-  return this.repository.delete(id);
+  await this.repository.delete(id);
   }
 
   /**

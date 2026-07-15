@@ -18,12 +18,13 @@ export class ShopsRepository {
     return this.shopModel.create(shop);
   }
 
-  /**
+/**
  * Fetches all shops from the database.
  *
  * @returns {Promise<Shop[]>} All shop rows.
  * @throws {Error} If the database query fails.
  */
+
   async findAll(): Promise<Shop[]> {
     return this.shopModel.findAll();
   }
@@ -32,11 +33,11 @@ export class ShopsRepository {
  * Fetches a single shop by ID.
  *
  * @param {string} id - Shop ID to look up.
- * @returns {Promise<Shop>} The shop row - can be null at runtime if not found.
+ * @returns {Promise<Shop | null>} The shop row - can be null at runtime if not found.
  * @throws {Error} If the database query fails.
  */
 
-  async findOne(id: string): Promise<Shop> {
+  async findOne(id: string): Promise<Shop | null> {
     return this.shopModel.findByPk(id);
   }
 
@@ -45,11 +46,11 @@ export class ShopsRepository {
  *
  * @param {string} id - Shop ID to update.
  * @param {Partial<Shop>} shop - Fields to update.
- * @returns {Promise<Shop>} The updated shop row - can be undefined at runtime if not found.
+ * @returns {Promise<Shop | undefined>} The updated shop row - can be undefined at runtime if not found.
  * @throws {Error} If the database update fails.
  */
 
-  async update(id: string, shop: Partial<Shop>): Promise<Shop> {
+  async update(id: string, shop: Partial<Shop>): Promise<Shop | undefined> {
     const result = await this.shopModel.update(shop, {
       where: { id },
       returning: true,
@@ -57,6 +58,7 @@ export class ShopsRepository {
 
     return result[1][0];
   }
+
 /**
  * Deletes a shop by ID.
  *

@@ -13,10 +13,10 @@ export class UpdateMemberDTO {
   @JoiSchema(Joi.string().valid('male', 'female').optional())
   gender?: string;
 
-  @JoiSchema(Joi.string().optional())
+  @JoiSchema(Joi.date().iso().optional())
   dateOfBirth?: string;
 
-  @JoiSchema(Joi.string().optional())
+  @JoiSchema(Joi.date().iso().optional())
   subscriptionDate?: string;
 
   @JoiSchema(Joi.string().optional())

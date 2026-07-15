@@ -10,11 +10,13 @@ export class MembersService {
 
 /**
  * Creates a new member.
+ * 
  * @param member - The member data to create
  * @returns The created member
  * @throws BadRequestException when centralMemberId does not exist
  * @throws BadRequestException when the chosen central member is already a family member
  */
+
 async create(member: CreateMemberDTO): Promise<MemberDTO> {
   if (member.centralMemberId) {
     const centralMember = await this.repository.findOne(member.centralMemberId);
@@ -41,6 +43,7 @@ async create(member: CreateMemberDTO): Promise<MemberDTO> {
 /**
  * Finds members using simple pagination.
  * Returns at most 100 members per request.
+ * 
  * @param limit - Maximum number of members to return
  * @param offset - Number of members to skip
  * @returns The list of members
@@ -68,6 +71,7 @@ async create(member: CreateMemberDTO): Promise<MemberDTO> {
 
 /**
  * Finds a member by id.
+ * 
  * @param id - The member id
  * @returns The matching member
  * @throws NotFoundException when the member does not exist
@@ -81,8 +85,10 @@ async create(member: CreateMemberDTO): Promise<MemberDTO> {
 
   return member;
 }
+
 /**
  * Updates an existing member.
+ * 
  * @param id - The id of the member to update
  * @param member - The member fields to update
  * @returns The updated member
@@ -93,6 +99,7 @@ async create(member: CreateMemberDTO): Promise<MemberDTO> {
  * @throws BadRequestException when the chosen central member is already a family member
  * @throws BadRequestException when a central member is being converted into a family member
  */
+
 async update(id: string, member: UpdateMemberDTO): Promise<MemberDTO> {
   const existingMember = await this.repository.findOne(id);
 
@@ -138,12 +145,15 @@ async update(id: string, member: UpdateMemberDTO): Promise<MemberDTO> {
 
   return this.repository.update(id, member);
 }
+
 /**
  * Deletes a member by id.
+ * 
  * @param id - The member id
  * @returns Nothing
  * @throws NotFoundException when the member does not exist
  */
+
   async delete(id: string): Promise<void> {
   const existingMember = await this.repository.findOne(id);
 
